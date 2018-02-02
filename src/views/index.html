@@ -14,9 +14,39 @@
 </head>
 
 <body>
-    test
+    <div id="container"></div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <script type="text/babel">
+        var EnterName = React.createClass({
+          getInitialState: function(){
+            return {setName: false}
+          },
+          handleClick: function(){
+            this.setState({setName: true})
+          },
+          render: function(){
+            var msg
+            if(this.state.setName){
+              msg = "Welcome to the chat"
+            } else {
+              msg = "Enter your name to join the chat"
+            }
+            return(
+              <div>
+                <input type="text"/>
+                <button onClick={this.handleClick}>Enter</button>
+                <p>{msg}</p>
+              </div>
+            );
+          }
+        });
+
+        ReactDOM.render(
+          <div>
+            <EnterName/>
+          </div>, document.getElementById('container'));
+    </script>
 </body>
 
 </html>

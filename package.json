@@ -42,6 +42,8 @@
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^2.29.0",
     "node-sass": "^4.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4",
