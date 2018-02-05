@@ -1,4 +1,14 @@
 import '../scss/style.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from '../components/App.js';
+import Container from '../components/Container.js';
+ 
+ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Container />, document.getElementById('container'));
+
+console.log('My Minimal React Webpack Babel Setup');
+
 
 
 // if ('serviceWorker' in navigator) {

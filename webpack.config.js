@@ -1,24 +1,36 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const path = require('path');
-const extractPlugin = new ExtractTextPlugin({
-    filename: 'main.css'
-});
+const ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    CleanWebpackPlugin = require('clean-webpack-plugin'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    ManifestPlugin = require('webpack-manifest-plugin'),
+    FaviconsWebpackPlugin = require('favicons-webpack-plugin'),
+    path = require('path'),
+    React = require('react'),
+    ReactDOM = require('react-dom'),
+    extractPlugin = new ExtractTextPlugin({
+        filename: 'main.css'
+    });
 
 module.exports = {
-    entry: './src/js/index.js',
+    devServer: {
+        contentBase: './dist',
+        // inline: true, // autorefresh
+        // port: 8080 // development port server
+    },
+    entry: './src/js/index.js', // entry point
+    externals: {
+        React,
+        ReactDOM
+    },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/, // search for js files
+                exclude: /node_modules/,
                 use: [
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['es2015']
+                            presets: ['es2015', 'react']
                         }
                     }
                 ]
@@ -38,24 +50,34 @@ module.exports = {
             {
                 test: /\.html$/,
                 use: ['html-loader']
+            },
+            {
+                test: /\.(jpg|png)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'img/',
+                        publicPath: 'img/'
+                    }
+                }]
             }
-            // ,
-            // {
-            //     test: /\.(jpg|png)$/,
-            //     use: [{
-            //         loader: 'file-loader',
-            //         options: {
-            //             name: '[name].[ext]',
-            //             outputPath: 'img/',
-            //             publicPath: 'img/'
-            //         }
-            //     }]
-            // }
+        ],
+        loaders: [
+            {
+                test: /\.jsx?$/, // search for js files 
+                exclude: /node_modules/,
+                loader: ['babel-loader', 'eslint'],
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
         ]
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'), // place where bundled app will be served
+        publicPath: '/',
     },
     plugins: [
         extractPlugin,
@@ -101,5 +123,8 @@ module.exports = {
             // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
             title: 'ReactChat'
         })
-    ]
-};
+    ],
+    resolve: {
+        extensions: ['*', '.js', '.jsx']
+    },
+}
