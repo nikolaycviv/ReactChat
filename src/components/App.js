@@ -3,7 +3,7 @@ import SetName from './SetName';
 import CreateMessage from './CreateMessage';
 // import PropTypes from 'prop-types';
 
-class App extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = { greeting: "", name: "", message: "" };
@@ -34,5 +34,3 @@ class App extends React.Component {
         );
     }
 }
-
-export default App;

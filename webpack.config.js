@@ -1,3 +1,5 @@
+// import path from 'path';
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
@@ -11,12 +13,24 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin'),
     });
 
 module.exports = {
+    devtool: production ? false : "source-map",
+    debug: !production,
     devServer: {
+        proxy: {
+            '/chat*': {
+                target: 'http://localhost:8080',
+                secure: false
+            }
+        },
         contentBase: './dist',
         // inline: true, // autorefresh
         // port: 8080 // development port server
     },
-    entry: './src/js/index.js', // entry point
+    // entry: [
+    //     'webpack-hot-middleware/client',
+    //     path.join(__dirname, './src/js/index.js')
+    // ],
+    entry: './src/static/js/index.js', // entry point
     externals: {
         React,
         ReactDOM
@@ -80,6 +94,18 @@ module.exports = {
         publicPath: '/',
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false },
+            mangle: true,
+            sourcemap: false,
+            beautify: false,
+            dead_code: true
+        }),
         extractPlugin,
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({

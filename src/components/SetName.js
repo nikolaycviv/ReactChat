@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SetName extends React.Component {
+export default class SetName extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -10,5 +10,3 @@ class SetName extends React.Component {
     );
   }
 }
-
-export default SetName;
