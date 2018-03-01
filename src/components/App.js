@@ -15,7 +15,8 @@ class App extends React.Component {
 
     handleClick() {
         if (this.refs.name.value) {
-            var date = Date.now();
+            let date = new Date();
+            date.toLocaleDateString();
             let newMessage = "";
             newMessage = date + " " +this.refs.name.value + " : " + this.refs.name.value;
             this.messages.push(newMessage);
