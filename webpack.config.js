@@ -1,5 +1,3 @@
-// import path from 'path';
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
@@ -8,29 +6,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin'),
     path = require('path'),
     React = require('react'),
     ReactDOM = require('react-dom'),
+    webpack = require('webpack'),
     extractPlugin = new ExtractTextPlugin({
         filename: 'main.css'
     });
 
 module.exports = {
-    devtool: production ? false : "source-map",
-    debug: !production,
     devServer: {
-        proxy: {
-            '/chat*': {
-                target: 'http://localhost:8080',
-                secure: false
-            }
-        },
         contentBase: './dist',
-        // inline: true, // autorefresh
-        // port: 8080 // development port server
+        hot: true
     },
-    // entry: [
-    //     'webpack-hot-middleware/client',
-    //     path.join(__dirname, './src/js/index.js')
-    // ],
-    entry: './src/static/js/index.js', // entry point
+    entry: './src/app-client.js', // entry point
     externals: {
         React,
         ReactDOM
@@ -97,58 +83,52 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: { warnings: false },
-            mangle: true,
-            sourcemap: false,
-            beautify: false,
-            dead_code: true
-        }),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         extractPlugin,
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: './src/views/index.html'
         }),
-        new ManifestPlugin({
-            seed: {
-                short_name: 'Chat'
-            },
-            writeToFileEmit: true
-        }),
-        new FaviconsWebpackPlugin({
-            // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
-            background: '#fff',
-            // emit all stats of the generated icons
-            emitStats: false,
-            // which icons should be generated (see https://github.com/haydenbleasel/favicons#usage)
-            icons: {
-                android: true,
-                appleIcon: true,
-                appleStartup: true,
-                coast: false,
-                favicons: true,
-                firefox: true,
-                opengraph: false,
-                twitter: false,
-                windows: false,
-                yandex: false
-            },
-            // inject the html into the html-webpack-plugin
-            inject: true,
-            // your source logo
-            logo: './src/images/favicon.ico',
-            // generate a cache file with control hashes and
-            // don't rebuild the favicons until those hashes change
-            // persistentCache: true,
-            // the prefix for all image files (might be a folder or a name)
-            // prefix: 'icons-[hash]/',
-            // the name of the json containing all favicon information
-            // statsFilename: 'iconstats-[hash].json',
-            // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
-            title: 'ReactChat'
-        })
+        // new ManifestPlugin({
+        //     seed: {
+        //         short_name: 'Chat'
+        //     },
+        //     writeToFileEmit: true
+        // }),
+        // new FaviconsWebpackPlugin({
+        //     // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
+        //     background: '#fff',
+        //     // emit all stats of the generated icons
+        //     emitStats: false,
+        //     // which icons should be generated (see https://github.com/haydenbleasel/favicons#usage)
+        //     icons: {
+        //         android: true,
+        //         appleIcon: true,
+        //         appleStartup: true,
+        //         coast: false,
+        //         favicons: true,
+        //         firefox: true,
+        //         opengraph: false,
+        //         twitter: false,
+        //         windows: false,
+        //         yandex: false
+        //     },
+        //     // inject the html into the html-webpack-plugin
+        //     inject: true,
+        //     // your source logo
+        //     logo: './src/images/favicon.ico',
+        //     // generate a cache file with control hashes and
+        //     // don't rebuild the favicons until those hashes change
+        //     // persistentCache: true,
+        //     // the prefix for all image files (might be a folder or a name)
+        //     // prefix: 'icons-[hash]/',
+        //     // the name of the json containing all favicon information
+        //     // statsFilename: 'iconstats-[hash].json',
+        //     // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
+        //     title: 'ReactChat'
+        // }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ],
     resolve: {
         extensions: ['*', '.js', '.jsx']
