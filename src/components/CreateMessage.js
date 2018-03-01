@@ -1,3 +1,4 @@
+// not used atm
 import React from 'react';
 
 export default class CreateMessage extends React.Component {

@@ -1,19 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
 export default class Layout extends React.Component {
     render() {
         return (
             <div className="app-container">
-                <header>
-                    <Link to="/">
-                        <img className="logo" src="/images/favicon.ico" />
-                    </Link>
-                </header>
+                <h1>Basic Layout</h1>
+                <nav>
+                    <ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/about">About</Link></li>
+                        <li><Link to="/contact">Contact</Link></li>
+                    </ul>
+                </nav>
                 <div className="app-content">{this.props.children}</div>
-                <footer>
-                    <p>This is a demo app to showcase universal rendering and routing with <strong>React</strong> and <strong>Express</strong>.</p>
-                </footer>
             </div>
         );
     }
