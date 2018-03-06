@@ -2,7 +2,7 @@ import React from 'react';
 import SetName from './SetName';
 import CreateMessage from './CreateMessage';
 
-export default class IndexPage extends React.Component {
+export class IndexPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { greeting: "", name: "", message: "" };
@@ -22,6 +22,7 @@ export default class IndexPage extends React.Component {
     render() {
         return (
             <div>
+                <h1 className="page-header">Index Page</h1>
                 <p>Enter name:</p>
                 <input type="text" ref="name" />
                 <p>Enter message:</p>
