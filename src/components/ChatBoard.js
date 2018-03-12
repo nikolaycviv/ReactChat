@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ChatBoard extends React.Component {
+class ChatBoard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -17,3 +17,5 @@ export class ChatBoard extends React.Component {
     )
   }
 }
+
+export default ChatBoard;
