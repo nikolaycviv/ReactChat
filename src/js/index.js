@@ -1,8 +1,11 @@
+// Styles
 import '../scss/style.scss';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// Javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../components/App.js';
- 
+
 ReactDOM.render(<App />, document.getElementById('app'));
 
 console.log('My Minimal React Webpack Babel Setup');

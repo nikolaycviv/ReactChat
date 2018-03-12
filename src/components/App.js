@@ -2,6 +2,8 @@ import React from 'react';
 import SetName from './SetName';
 import CreateMessage from './CreateMessage';
 import ChatBoard from './ChatBoard';
+import Header from './Header';
+import Footer from './Footer';
 // import PropTypes from 'prop-types';
 
 class App extends React.Component {
@@ -30,6 +32,10 @@ class App extends React.Component {
     render(){
         return (
             <div>
+              <header>
+                <Header/>
+              </header>
+              <div>
                 <p>Enter name:</p>
                 <input type="text" ref="name" />
                 <p>Enter message:</p>
@@ -37,6 +43,10 @@ class App extends React.Component {
                 <button onClick={this.handleClick}>Send</button>
                 <p>{this.state.greeting}</p>
                 <ChatBoard messages={this.messages}/>
+              </div>
+              <footer>
+                <Footer projectName="React Chat" year="2018" />
+              </footer>
             </div>
         );
     }
