@@ -6,7 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 // import PropTypes from 'prop-types';
 
-class App extends React.Component {
+export class IndexPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { greeting: "", name: "", message: "" };
@@ -20,7 +20,7 @@ class App extends React.Component {
             let date = new Date();
             date.toLocaleDateString();
             let newMessage = "";
-            newMessage = date + " " +this.refs.name.value + " : " + this.refs.name.value;
+            newMessage = date + " " + this.refs.name.value + " : " + this.refs.name.value;
             this.messages.push(newMessage);
             console.log(newMessage);
             this.setState({ greeting: "Welcome to the chat", name: this.refs.name.value, message: this.refs.name.value });
@@ -29,13 +29,14 @@ class App extends React.Component {
         }
     }
 
-    render(){
+    render() {
         return (
             <div>
               <header>
                 <Header/>
               </header>
               <div>
+                <h1 className="page-header">Index Page</h1>
                 <p>Enter name:</p>
                 <input type="text" ref="name" />
                 <p>Enter message:</p>
@@ -47,9 +48,8 @@ class App extends React.Component {
               <footer>
                 <Footer projectName="React Chat" year="2018" />
               </footer>
+                <ChatBoard messages={this.messages} />
             </div>
         );
     }
 }
-
-export default App;
