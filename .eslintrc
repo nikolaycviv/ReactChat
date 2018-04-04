@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react", "prettier", "import", "jsx-ally"],
+  "rules": {
+    "comma-dangle": ["warn", "never"],
+    "linebreak-style": ["warn", "unix"],
+    "quotes": [2, "double"],
+    "no-unused-expressions": "warn",
+    "no-useless-concat": "warn",
+    "block-scoped-var": "error",
+    "consistent-return": "error",
+    "no-mixed-operators": "off",
+    "function-paren-newline": ["error", "consistent"]
+  }
+}
