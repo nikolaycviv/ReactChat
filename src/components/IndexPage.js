@@ -1,26 +1,19 @@
 import React from 'react';
 import SetName from './SetName';
 import CreateMessage from './CreateMessage';
-import { ChatBoard } from './ChatBoard';
 
 export class IndexPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { greeting: "", name: "", message: "" };
-        this.messages = [];
+
         // This binding is necessary to make `this` work in the callback
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
         if (this.refs.name.value) {
-            let date = new Date();
-            date.toLocaleDateString();
-            let newMessage = "";
-            newMessage = date + " " + this.refs.name.value + " : " + this.refs.name.value;
-            this.messages.push(newMessage);
-            console.log(newMessage);
-            this.setState({ greeting: "Welcome to the chat", name: this.refs.name.value, message: this.refs.name.value });
+            this.setState({ greeting: "Welcome to the chat", name: this.refs.name.value, message: this.refs.message.value });
         } else {
             this.setState({ greeting: "Enter your name to join the chat" });
         }
@@ -36,7 +29,7 @@ export class IndexPage extends React.Component {
                 <input type="text" ref="message" />
                 <button onClick={this.handleClick}>Send</button>
                 <p>{this.state.greeting}</p>
-                <ChatBoard messages={this.messages} />
+                <span><SetName userName={this.state.name} /> : <CreateMessage message={this.state.message} /></span>
             </div>
         );
     }
