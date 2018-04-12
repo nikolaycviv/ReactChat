@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { Component } from "react";
 
-export default class CreateMessage extends React.Component {
+export default class CreateMessage extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return (
-      <span>{this.props.message}</span>
-    );
+    return <span>{this.props.message}</span>;
   }
 }
