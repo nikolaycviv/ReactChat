@@ -13,7 +13,7 @@
       "jsx": true
     }
   },
-  "plugins": ["react", "prettier", "import", "jsx-ally"],
+  "plugins": ["react", "prettier", "import", "jsx-a11y"],
   "rules": {
     "comma-dangle": ["warn", "never"],
     "linebreak-style": ["warn", "unix"],

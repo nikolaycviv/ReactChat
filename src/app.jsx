@@ -6,7 +6,7 @@ import { Home } from "./components/home";
 import { About } from "./components/about";
 import { Contact } from "./components/contact";
 import { IndexPage } from "./components/IndexPage";
-import { NotFoundPage } from "./components/notFoundPage";
+import { NotFoundPage } from "./components/NotFoundPage";
 
 ReactDOM.render(
   <div>
@@ -29,5 +29,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById("app")
 );
-
-console.log("Running");
