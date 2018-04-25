@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import error from "./ErrorBoundary";
 import SetName from "./SetName";
 import CreateMessage from "./CreateMessage";
 
