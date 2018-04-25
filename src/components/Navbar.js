@@ -19,9 +19,6 @@ const Navbar = () => (
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <Link to="/" className="navbar-brand">
-            ReactJS
-          </Link>
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav">

@@ -2,27 +2,53 @@
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true,
     "node": true
   },
-  "extends": "airbnb",
-  "parser": "babel-eslint",
   "parserOptions": {
+    "ecmaVersion": 8,
     "sourceType": "module",
     "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "classes": true,
       "jsx": true
     }
   },
-  "plugins": ["react", "prettier", "import", "jsx-a11y"],
+  "extends": [
+    "react-app",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "parser": "babel-eslint",
   "rules": {
-    "comma-dangle": ["warn", "never"],
-    "linebreak-style": ["warn", "unix"],
-    "quotes": [2, "double"],
+    "prettier/prettier": "error",
+    "comma-dangle": [
+      "warn",
+      "never"
+    ],
+    "linebreak-style": [
+      "warn",
+      "unix"
+    ],
+    "quotes": [
+      2,
+      "double"
+    ],
     "no-unused-expressions": "warn",
     "no-useless-concat": "warn",
     "block-scoped-var": "error",
     "consistent-return": "error",
     "no-mixed-operators": "off",
-    "function-paren-newline": ["error", "consistent"]
+    "function-paren-newline": [
+      "error",
+      "consistent"
+    ],
+    "one-var": [
+      "warn",
+      "always"
+    ]
   }
 }
