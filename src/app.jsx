@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import { Navbar } from "./components/navbar";
-import { Home } from "./components/home";
-import { About } from "./components/about";
-import { Contact } from "./components/contact";
-import { IndexPage } from "./components/IndexPage";
-import { NotFoundPage } from "./components/NotFoundPage";
+import Navbar from "./components/navbar.jsx";
+import Home from "./components/home.jsx";
+import About from "./components/about.jsx";
+import Contact from "./components/contact.jsx";
+import IndexPage from "./components/IndexPage.jsx";
+import NotFoundPage from "./components/NotFoundPage.jsx";
 
 ReactDOM.render(
   <div>

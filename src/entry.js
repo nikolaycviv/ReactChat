@@ -1,2 +1,2 @@
-require("./scss/style.scss");
-require("./app.jsx");
+import "./scss/style.scss";
+import "./app.jsx";
