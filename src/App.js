@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/navbar.jsx";
-import Home from "./components/home.jsx";
-import About from "./components/about.jsx";
-import Contact from "./components/contact.jsx";
-import IndexPage from "./components/IndexPage.jsx";
-import NotFoundPage from "./components/NotFoundPage.jsx";
+import "./css/App.css";
+// import logo from "./logo.svg";
+
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import IndexPage from "./components/IndexPage";
+import NotFoundPage from "./components/NotFoundPage";
 
 ReactDOM.render(
   <div>
@@ -15,7 +18,7 @@ ReactDOM.render(
   document.getElementById("react-nav")
 );
 
-ReactDOM.render(
+const App = () => (
   <Router>
     <div>
       <Switch>
@@ -26,6 +29,7 @@ ReactDOM.render(
         <Route component={NotFoundPage} />
       </Switch>
     </div>
-  </Router>,
-  document.getElementById("app")
+  </Router>
 );
+
+export default App;

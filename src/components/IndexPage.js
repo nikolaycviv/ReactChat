@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import error from "./ErrorBoundary";
-import SetName from "./SetName.jsx";
-import CreateMessage from "./CreateMessage.jsx";
+import SetName from "./SetName";
+import CreateMessage from "./CreateMessage";
 
 export default class IndexPage extends Component {
   constructor(props) {
@@ -35,7 +34,8 @@ export default class IndexPage extends Component {
         <button onClick={this.handleClick}>Send</button>
         <p>{this.state.greeting}</p>
         <span>
-          <SetName userName={this.state.name} /> : <CreateMessage message={this.state.message} />
+          <SetName userName={this.state.name} /> :{" "}
+          <CreateMessage message={this.state.message} />
         </span>
       </div>
     );

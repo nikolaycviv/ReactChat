@@ -2,10 +2,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin"),
   CleanWebpackPlugin = require("clean-webpack-plugin"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
   path = require("path"),
-  webpack = require("webpack"),
-  extractPlugin = new ExtractTextPlugin({
-    filename: "main.css"
-  });
+  webpack = require("webpack");
+// const   extractPlugin = new ExtractTextPlugin({
+//   filename: "main.css"
+// });
 
 module.exports = {
   devServer: {
@@ -16,12 +16,26 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["env", "react"]
+        test: /\.js?$/, // search for js files
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["env", "react"]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.jsx?$/, // search for jsx files
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["env", "react"]
+            }
           }
         }
       },
@@ -59,12 +73,15 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist") // place where bundled app will be served
   },
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    extractPlugin,
+    // extractPlugin,
     new CleanWebpackPlugin(["dist"]),
     new HtmlWebpackPlugin({
       template: "./src/views/index.html"
