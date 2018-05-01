@@ -9,11 +9,13 @@
   },
   "main": "./src/index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run react-start\" \"npm run nodemon\" \"npm run sass\"",
+    "react-start": "react-scripts start",
+    "nodemon": "nodemon src/server/server.js",
+    "sass": "./node_modules/.bin/node-sass -w src/scss -o src/css",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "sass": "./node_modules/.bin/node-sass -w src/scss -o src/css",
     "prune": "npm prune"
   },
   "keywords": [
@@ -32,10 +34,12 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
+    "concurrently": "^3.5.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "node-sass": "^4.6.1",
+    "nodemon": "^1.17.3",
     "prettier": "^1.12.1"
   },
   "bugs": {
