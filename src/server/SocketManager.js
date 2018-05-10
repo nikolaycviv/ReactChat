@@ -16,6 +16,7 @@ let communityChat = createChat(),
   chats = [communityChat];
 
 module.exports = function(socket) {
+  console.log("Connected!...");
   let sendMessageToChatFromUser, sendTypingFromUser;
 
   //Verify Username 1
