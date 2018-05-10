@@ -1,6 +1,6 @@
 const app = require("http").createServer(),
   io = (module.exports.io = require("socket.io")(app)),
-  PORT = process.env.PORT || 8080,
+  PORT = process.env.PORT || 3231,
   SocketManager = require("./SocketManager");
 
 // app.get("/", (req, res) => {

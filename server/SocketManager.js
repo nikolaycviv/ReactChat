@@ -6,74 +6,87 @@ const io = require("./server.js").io,
     USER_CONNECTED,
     USER_DISCONNECTED,
     TYPING,
-    STOP_TYPING,
     VERIFY_USER,
     LOGOUT
-  } = require("../Constants"),
-  { createUser, createChat, createMessage } = require("../Classes");
+  } = require("../src/utils/Constants"),
+  { createUser, createChat, createMessage } = require("../src/utils/Factories");
 let communityChat = createChat(),
-  connectedUsers = {},
-  chats = [communityChat];
+  connectedUsers = {};
 
 module.exports = function(socket) {
+  console.log("Socket Id:" + socket.id);
+
   let sendMessageToChatFromUser, sendTypingFromUser;
 
-  //Verify Username 1
-  socket.on(VERIFY_USER, function(newUser, callback) {
-    if (!isUser(connectedUsers, newUser)) {
-      callback({ isUser: false, user: createUser({ name: newUser }) });
+  // Verify Username
+  socket.on(VERIFY_USER, (nickname, callback) => {
+    if (isUser(connectedUsers, nickname)) {
+      callback({ isUser: true, user: null });
     } else {
-      callback({ isUser: true });
+      callback({ isUser: false, user: createUser({ name: nickname }) });
     }
   });
 
-  //userconnects 2
-  socket.on(USER_CONNECTED, function(user) {
+  // User Connects with username
+  socket.on(USER_CONNECTED, (user) => {
     connectedUsers = addUser(connectedUsers, user);
-    socket.user = user.name;
+    socket.user = user;
+
     sendMessageToChatFromUser = sendMessageToChat(user.name);
     sendTypingFromUser = sendTypingToChat(user.name);
 
-    console.log(connectedUsers);
     io.emit(USER_CONNECTED, connectedUsers);
+    console.log(connectedUsers);
   });
 
-  //user disconnects 3
-  socket.on("disconnect", function() {
-    if (!!socket.user) {
-      connectedUsers = removeUser(connectedUsers, socket.user);
+  // User disconnects
+  socket.on("disconnect", () => {
+    if ("user" in socket) {
+      connectedUsers = removeUser(connectedUsers, socket.user.name);
 
       io.emit(USER_DISCONNECTED, connectedUsers);
+      console.log("Disconnect", connectedUsers);
     }
   });
 
-  //user logout 4
-  socket.on(LOGOUT, function() {
-    connectedUsers = removeUser(connectedUsers, socket.user);
+  // User logsout
+  socket.on(LOGOUT, () => {
+    connectedUsers = removeUser(connectedUsers, socket.user.name);
+    io.emit(USER_DISCONNECTED, connectedUsers);
+    console.log("Disconnect", connectedUsers);
   });
 
-  //send community chat 5
-  socket.on(COMMUNITY_CHAT, function(callback) {
+  // Get Community Chat
+  socket.on(COMMUNITY_CHAT, (callback) => {
     callback(communityChat);
   });
 
-  //user sends message 6
-  socket.on(MESSAGE_SENT, function({ chatId, message }) {
+  socket.on(MESSAGE_SENT, ({ chatId, message }) => {
     sendMessageToChatFromUser(chatId, message);
   });
 
-  //add user to typing users on chatId 7
-  socket.on(TYPING, function({ chatId, isTyping }) {
+  socket.on(TYPING, ({ chatId, isTyping }) => {
     sendTypingFromUser(chatId, isTyping);
   });
 };
+/**
+ * Returns a function that will take a chat id and a boolean isTyping
+ * and then emit a broadcast to the chat id that the sender is typing
+ * @param sender {string} username of sender
+ * @return function(chatId, message)
+ */
+function sendTypingToChat(user) {
+  return (chatId, isTyping) => {
+    io.emit(`${TYPING}-${chatId}`, { user, isTyping });
+  };
+}
 
-/*
-* Returns a function that will take a chat id and message
-* and then emit a broadcast to the chat id.
-* @param sender {string} username of sender
-* @return function(chatId, message)
-*/
+/**
+ * Returns a function that will take a chat id and message
+ * and then emit a broadcast to the chat id.
+ * @param sender {string} username of sender
+ * @return function(chatId, message)
+ */
 function sendMessageToChat(sender) {
   return (chatId, message) => {
     io.emit(
@@ -83,19 +96,7 @@ function sendMessageToChat(sender) {
   };
 }
 
-/*
- * Returns a function that will take a chat id and boolean isTyping variable
- * and then emit a broadcast to the chat id that the sender is typing
- * @param sender {string} username of sender
- * @return function(chatId, isTyping)
- */
-function sendTypingToChat(user) {
-  return (chatId, isTyping) => {
-    io.emit(`${TYPING}-${chatId}`, { user, isTyping });
-  };
-}
-
-/*
+/**
  * Adds user to list passed in.
  * @param userList {Object} Object with key value pairs of users
  * @param user {User} the user to added to the list.
@@ -107,7 +108,7 @@ function addUser(userList, user) {
   return newList;
 }
 
-/*
+/**
  * Removes user from the list passed in.
  * @param userList {Object} Object with key value pairs of Users
  * @param username {string} name of user to be removed
@@ -119,7 +120,7 @@ function removeUser(userList, username) {
   return newList;
 }
 
-/*
+/**
  * Checks if the user is in list passed in.
  * @param userList {Object} Object with key value pairs of Users
  * @param username {String}
@@ -127,12 +128,4 @@ function removeUser(userList, username) {
  */
 function isUser(userList, username) {
   return username in userList;
-}
-
-function createError(message) {
-  return {
-    error: {
-      message
-    }
-  };
 }
