@@ -14,6 +14,7 @@ let communityChat = createChat(),
   connectedUsers = {};
 
 module.exports = function(socket) {
+  console.log("Connected!...");
   console.log("Socket Id:" + socket.id);
 
   let sendMessageToChatFromUser, sendTypingFromUser;
