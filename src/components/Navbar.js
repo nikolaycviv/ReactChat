@@ -32,7 +32,7 @@ const Navbar = () => (
               <Link to="/contact">Contact</Link>
             </li>
             <li>
-              <Link to="/indexPage">Index Page</Link>
+              <Link to="/chat">Chat</Link>
             </li>
           </ul>
         </div>

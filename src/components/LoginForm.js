@@ -36,8 +36,8 @@ export default class LoginForm extends Component {
   render() {
     const { nickname, error } = this.state;
     return (
-      <div>
-        <form onSubmit={this.handleSumbit}>
+      <div className="login">
+        <form onSubmit={this.handleSumbit} className="login-form">
           <label htmlFor="nickname">
             <h2>Got a nickname?</h2>
           </label>
