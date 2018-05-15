@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import IndexPage from "./components/IndexPage";
+import Chat from "./components/Chat";
 import NotFoundPage from "./components/NotFoundPage";
 
 const App = () => (
@@ -19,7 +19,7 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
-        <Route path="/indexPage" component={IndexPage} />
+        <Route path="/chat" component={Chat} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

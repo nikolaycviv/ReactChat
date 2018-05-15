@@ -29,10 +29,6 @@
             "warn",
             "never"
         ],
-        "linebreak-style": [
-            "warn",
-            "unix"
-        ],
         "quotes": [
             2,
             "double"
