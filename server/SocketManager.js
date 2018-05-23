@@ -7,7 +7,8 @@ const io = require("./server.js").io,
     USER_DISCONNECTED,
     TYPING,
     VERIFY_USER,
-    LOGOUT
+    LOGOUT,
+    PRIVATE_MESSAGE
   } = require("../src/utils/Constants"),
   { createUser, createChat, createMessage } = require("../src/utils/Factories");
 let communityChat = createChat(),
@@ -24,12 +25,13 @@ module.exports = function(socket) {
     if (isUser(connectedUsers, nickname)) {
       callback({ isUser: true, user: null });
     } else {
-      callback({ isUser: false, user: createUser({ name: nickname }) });
+      callback({ isUser: false, user: createUser({ name: nickname, socketId:socket.id }) });
     }
   });
 
   // User Connects with username
   socket.on(USER_CONNECTED, (user) => {
+    user.socketId = socket.id;
     connectedUsers = addUser(connectedUsers, user);
     socket.user = user;
 
@@ -69,7 +71,16 @@ module.exports = function(socket) {
   socket.on(TYPING, ({ chatId, isTyping }) => {
     sendTypingFromUser(chatId, isTyping);
   });
-};
+
+  socket.on(PRIVATE_MESSAGE, ({reciever, sender}) => {
+    if(reciever in connectedUsers) {
+      const newChat = createChat({ name:`${reciever}&${sender}`, users:[reciever, sender] });
+      const recieverSocket = connectedUsers[reciever].socketId;
+      socket.to(recieverSocket).emit(PRIVATE_MESSAGE, newChat);
+      socket.emit(PRIVATE_MESSAGE, newChat);
+    }
+  });
+}
 /**
  * Returns a function that will take a chat id and a boolean isTyping
  * and then emit a broadcast to the chat id that the sender is typing
