@@ -7,9 +7,10 @@ const uuidv4 = require("uuid/v4"),
    *  @param {object}
    *    name {string}
    */
-  createUser = ({ name = "" } = {}) => ({
+  createUser = ({ name = "", socketId = null } = {}) => ({
     id: uuidv4(),
-    name
+    name,
+    socketId
   }),
   /**
    *  createMessage
