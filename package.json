@@ -1,12 +1,7 @@
 {
   "name": "chat",
-  "version": "1.0.0",
-  "description": "React Chat",
+  "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=6.5",
-    "npm": ">=3.10"
-  },
   "main": "./src/index.js",
   "scripts": {
     "start": "concurrently \"npm run react-start\" \"npm run nodemon\" \"npm run sass\"",
@@ -26,27 +21,26 @@
   "author": "Nikolay Ivanov, Jenny Pavlova",
   "license": "ISC",
   "dependencies": {
-    "prop-types": "^15.6.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-icons": "^2.2.7",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.3",
     "socket.io": "^2.1.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
     "concurrently": "^3.5.1",
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
     "node-sass": "^4.6.1",
-    "nodemon": "^1.17.3",
-    "prettier": "^1.12.1"
+    "nodemon": "^1.17.3"
   },
-  "bugs": {
-    "url": "https://github.com/nikolaycviv/ReactChat/issues"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "homepage": "https://github.com/nikolaycviv/ReactChat#readme"
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
